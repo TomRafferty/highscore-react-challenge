@@ -1,13 +1,14 @@
 import allCountryScores from "./scores";
 
-function sortScores(arr) {
-  //disabled currently
-  //arr.map((country) => country.scores.sort((a, b) => a - b));
-  return arr;
+function sortCountries() {
+  let newArr = allCountryScores
+  //had to google this line:
+  newArr.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0))
+  return newArr;
 }
 
 const PopulateScoreboard = () => {
-  const sortedScores = sortScores(allCountryScores);
+  const sortedScores = sortCountries();
   return (
     <div className="tables-wrapper">
       {sortedScores.map((country, countryIndex) => {
