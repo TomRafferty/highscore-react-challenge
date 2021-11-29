@@ -1,17 +1,18 @@
 import allCountryScores from "./scores";
 
-function sortCountries() {
-  let newArr = allCountryScores
+const sortCountries = () => {
+  let newArr = allCountryScores;
   //had to google this line:
-  newArr.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0))
+  newArr.sort((a, b) => (a.name > b.name ? 1 : b.name > a.name ? -1 : 0));
+  
   return newArr;
-}
+};
 
 const PopulateScoreboard = () => {
-  const sortedScores = sortCountries();
+  const sortedArr = sortCountries();
   return (
     <div className="tables-wrapper">
-      {sortedScores.map((country, countryIndex) => {
+      {sortedArr.map((country, countryIndex) => {
         return (
           <table key={`${country}-${countryIndex}-table`} className="table">
             <caption key={`${country}-caption`} className="table-caption">
@@ -36,7 +37,7 @@ const PopulateScoreboard = () => {
             </thead>
 
             <tbody>
-              {country.scores.map((person, personIndex) => {
+              {country.scores.sort((a, b) => (a.s < b.s ? 1 : b.s < a.s ? -1 : 0)).map((person, personIndex) => {
                 return (
                   <tr key={`${person}-${personIndex}-table-row`}>
                     <td key={`${person}-${personIndex}-name`}>{person.n}</td>
