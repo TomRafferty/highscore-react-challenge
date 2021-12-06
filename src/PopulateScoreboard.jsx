@@ -1,5 +1,6 @@
 import { useState } from "react";
 import allCountryScores from "./scores";
+import ScoreTableMaker from "./ScoreTableMaker";
 
 const sortCountries = () => {
   let newArr = allCountryScores;
@@ -23,6 +24,38 @@ const PopulateScoreboard = () => {
   return (
     <>
       <button onClick={toggleSortOrder}>Toggle Sort Order</button>
+
+      <div className="tables-wrapper">
+        <table className="table">
+          <caption className="table-caption" key="world-score-table-caption">
+            World Scores:
+          </caption>
+          <tbody key="world-score-table">
+            <thead key="world-score-table-head">
+              <tr key="world-score-table-row-headers">
+                <th
+                  key="world-score-table-name-heading"
+                  className="table-heading"
+                >
+                  Name
+                </th>
+                <th
+                  key="world-score-table-score-heading"
+                  className="table-heading"
+                >
+                  Score
+                </th>
+              </tr>
+            </thead>
+            {sortedArr.map((country) => {
+              return (
+                <ScoreTableMaker country={country} sortOrder={sortOrder} />
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+
       <div className="tables-wrapper">
         {sortedArr.map((country, countryIndex) => {
           return (
@@ -47,26 +80,8 @@ const PopulateScoreboard = () => {
                   </th>
                 </tr>
               </thead>
-
               <tbody>
-                {country.scores
-                  .sort(
-                    sortOrder === "descending"
-                      ? (a, b) => (a.s < b.s ? 1 : b.s < a.s ? -1 : 0)
-                      : (a, b) => (a.s > b.s ? 1 : b.s > a.s ? -1 : 0)
-                  )
-                  .map((person, personIndex) => {
-                    return (
-                      <tr key={`${person}-${personIndex}-table-row`}>
-                        <td key={`${person}-${personIndex}-name`}>
-                          {person.n}
-                        </td>
-                        <td key={`${person}-${personIndex}-score`}>
-                          {person.s}
-                        </td>
-                      </tr>
-                    );
-                  })}
+                <ScoreTableMaker country={country} sortOrder={sortOrder} />
               </tbody>
             </table>
           );
