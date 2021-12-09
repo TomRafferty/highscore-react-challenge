@@ -1,6 +1,7 @@
 import { useState } from "react";
 import allCountryScores from "./scores";
 import ScoreTableMaker from "./ScoreTableMaker";
+import WorldScoreTable from "./WorldScoreTable";
 
 const sortCountries = () => {
   let newArr = allCountryScores;
@@ -23,39 +24,11 @@ const PopulateScoreboard = () => {
   const sortedArr = sortCountries();
   return (
     <>
+      {/* sort button - toggles ascending/descending order */}
       <button onClick={toggleSortOrder}>Toggle Sort Order</button>
-
-      <div className="tables-wrapper">
-        <table className="table">
-          <caption className="table-caption" key="world-score-table-caption">
-            World Scores:
-          </caption>
-          <tbody key="world-score-table">
-            <thead key="world-score-table-head">
-              <tr key="world-score-table-row-headers">
-                <th
-                  key="world-score-table-name-heading"
-                  className="table-heading"
-                >
-                  Name
-                </th>
-                <th
-                  key="world-score-table-score-heading"
-                  className="table-heading"
-                >
-                  Score
-                </th>
-              </tr>
-            </thead>
-            {sortedArr.map((country) => {
-              return (
-                <ScoreTableMaker country={country} sortOrder={sortOrder} />
-              );
-            })}
-          </tbody>
-        </table>
-      </div>
-
+      {/* rendering the first table - world score */}
+      <WorldScoreTable passedArr={sortedArr} sortOrder={sortOrder} />
+      {/* rendering the main table */}
       <div className="tables-wrapper">
         {sortedArr.map((country, countryIndex) => {
           return (
