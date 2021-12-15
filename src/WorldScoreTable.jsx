@@ -2,11 +2,11 @@ import ScoreTableMaker from "./ScoreTableMaker";
 const WorldScoreTable = (props) => {
   return (
     <div className="world-score-table-wrapper">
-      <table className="table">
+      <table className="table" key="world-score-table">
         <caption className="table-caption" key="world-score-table-caption">
           World Scores:
         </caption>
-        <tbody key="world-score-table">
+        <tbody key="world-score-table-body">
           <thead key="world-score-table-head">
             <tr key="world-score-table-row-headers">
               <th
@@ -24,7 +24,9 @@ const WorldScoreTable = (props) => {
             </tr>
           </thead>
           {props.passedArr.map((country) => {
-            return <ScoreTableMaker country={country} sortOrder={props.sortOrder} />;
+            return (
+              <ScoreTableMaker country={country} sortOrder={props.sortOrder} />
+            );
           })}
         </tbody>
       </table>
